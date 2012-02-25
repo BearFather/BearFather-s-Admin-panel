@@ -1,0 +1,25 @@
+Welcome to BearFather's web admin panel.  
+
+Inculded in this pack is a full admin panel with bash scripts that will 
+control your server.  Even updates. 
+
+It has support for dropbox backups, and will only keep 1 copy on there.
+You do need to have it installed before installing this pack.
+
+For updates you need to pack a rar with the following layout...
+craftbukit.jar
+plugins(directory)
+
+The update process deletes this file and that directory.
+
+Also I inculded a simple Rcon page (rcon.php), it using xPaws backend.
+But you need to enable it in server.properties and change the password
+info in MinecraftRcon.class.php
+The servey query also uses xPaws backend for queries.
+
+Enjoy.  
+
+Any issues, bugs, or just plain bitching email me:
+BearFather@gmail.com
+
+

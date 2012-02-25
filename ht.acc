@@ -1,0 +1,4 @@
+AuthType Digest
+AuthName "admin"
+AuthUserFile {sc}
+Require user {un}

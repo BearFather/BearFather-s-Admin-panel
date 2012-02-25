@@ -1,0 +1,3 @@
+www-data ALL= NOPASSWD: {sc1}
+www-data ALL= NOPASSWD: {sc2}
+
