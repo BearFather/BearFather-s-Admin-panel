@@ -1,12 +1,12 @@
 <?php
 require __DIR__.'/MinecraftRcon.class.php';
+require __DIR__.'/sp.php';
+
 if (isset($_POST['rcon'])) {
 	$cmdr=$_POST['cmd'];
 	$Data=mrcon($cmdr);
-	$blah=explode("§e", $Data);
-        foreach ($blah as $value){
-       	        echo $value."<br>";
-      }
+	$blah=explode($spc."e", $Data);
+        foreach ($blah as $value){echo $value."<br>";}
   	echo "<font color=red>What command do you want?";
         echo "<FORM NAME=form METHOD=POST ACTION=rcon.php>";
         echo "<INPUT TYPE= TEXT VALUE='' name=cmd><P>";
