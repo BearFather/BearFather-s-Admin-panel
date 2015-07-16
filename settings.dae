@@ -1,0 +1,26 @@
+<?php
+// Settings for admin page.
+$psw="";
+//Dameon Password
+$mcloc="";
+// Minecraft location
+$scloc="";
+// Where are the script files.
+$fdloc="";
+//Where are the the web files.
+
+//CODE dont change
+if (!defined('MQ_SERVER_ADDR')){
+//ENDCODE
+
+//Query and RCON info
+define('MQ_SERVER_PORTr', 11111 );
+// Server RCON Port
+define('MQ_SERVER_PASS', '' );
+// Server RCON password
+define('MQ_SERVER_ADDR', '');
+// Server IP
+define('MQ_TIMEOUT', 3);// Timeout
+}
+?>
+

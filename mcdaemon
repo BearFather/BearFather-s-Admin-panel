@@ -1,0 +1,1 @@
+sudo screen -d -m -S dmc php server.php

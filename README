@@ -1,26 +1,18 @@
-Welcome to BearFather's web admin panel.  
-version 1.5
+This is the installer for BearFather's Admin Panel.  It a free tool for
+MineCraft Bukkit servers(Other MC servers too).  If you have any issues,
+concerns,bugs, or good jobs please email me at BearFather@gmail.com
 
-Inculded in this pack is a full admin panel with bash scripts that will 
-control your server.  Even updates. 
+++++INSTALL++++
+Run install.cmd as root.
+You will be ask serval questions, answer them.
+If you want auto-backup, you need to add a cronjob for it. (google crontab)
 
-It has support for dropbox backups, and will only keep 1 copy on there.
-You do need to have it installed before installing this pack.
-
-For updates you need to pack a rar with the following layout...
-craftbukit.jar
-plugins(directory)
-
-The update process deletes this file and that directory.
-
-Also I inculded a simple Rcon page (rcon.php), it using xPaws backend.
-But you need to enable it in server.properties and change the password
-info in MinecraftRcon.class.php
-The servey query also uses xPaws backend for queries.
-
-Enjoy.  
-
-Any issues, bugs, or just plain bitching email me:
-BearFather@gmail.com
++++RUNNING+++
+Run 'mcdaemon' on commandline.
+This will start a screen with name 'dmc'.  To access this screen type 
+'screen -r dmc' this will show you any connections and what is requested.
+To close the daemon ctrl-c inside the screen.
 
 
++++troubleshooting+++
+Well none at this time.  Email me BearFather@gmail.com

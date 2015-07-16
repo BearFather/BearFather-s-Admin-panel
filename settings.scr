@@ -1,0 +1,33 @@
+#!/bin/bash
+#Bash script settings
+# Where are the scripts files?
+scloc=/scripts
+# Backup Location?
+bkloc=/backup
+# Where is the mc server?
+mcloc=/server
+#How much RAM do you want in megs?  EXP 1024M
+rmamo=4096M
+
+# DropBox
+# Enable DropBox?
+dbon=false
+# Dropbox temp folder
+dbtloc=/home/bearfather/blah
+# Where is your DropBox folder, and where in it.
+dbloc=/home/bearfather/blah2
+# Where is dropbox.py at?
+dbploc=/scripts
+
+
+#Worlds
+#Enter your world names. Leave Blank for no world.
+w1=rpg_the_end
+w2=rpg_nether
+w3=
+w4=
+w5=
+w6=
+w7=
+w8=
+w9=

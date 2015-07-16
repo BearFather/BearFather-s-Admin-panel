@@ -75,7 +75,7 @@ if [ "$awn" == "stop" ]; then
   run=0
 fi
 
-if [ "$awn" == "install" ] || [ "$awn" == "Install" ] || [ "$awn" == "INSTALL" ] || [ "$awn" == "Install " ]; then
+if [ "$awn" == "install" ] || [ "$awn" == "Install" ] || [ "$awn" == "INSTALL" ]; then
  if [ "$strt" -eq "1" ]; then
   spot="install"
   rm set.temp
@@ -96,9 +96,6 @@ if [ "$db" -eq "1" ]; then
   spot="dbque"
   dbq="w1"
   dbon="false"
-  dbtloc="none"
-  dbloc="none"
-  dbploc="none"
   info="This section you can list up to 9 worlds, the scripts will backup and restore"
   info2="these worlds only.  Leave the name blank for no more worlds."
   que="Name of your first world? 'w1'"
@@ -130,7 +127,7 @@ case "$spot" in
  ;;
  "bkdir" )
  bkloc=$awn
- que="Where do you want daemon installed too."
+ que="Where do you want the web files?  Ussaly somewhere in your default web directory."
  spot="fddir"
  clear
  ;;
@@ -142,31 +139,7 @@ case "$spot" in
  ;;
  "ram" )
  rmamo=$awn
- que="What is the internal IP for the server?(ex: 192.168.1.102)"
- spot="ip"
- clear
- ;;
- "ip" )
- ip=$awn
- que="What do you want for daemon password?"
- spot="ps"
- clear
- ;;
- "ps" )
- ps=$awn
- que="What is the rcon port?"
- spot="rpt"
- clear
- ;;
- "rpt" )
- rpt=$awn
- que="What is the rcon password?"
- spot="rps"
- clear
- ;;
- "rps" )
- rps=$awn
- que="Do you want to use DropBox for backups? 'yes/no'(DISABLED)"
+ que="Do you want to use DropBox for backups? 'yes/no'"
  db=1
  spot="dbque"
  clear
@@ -230,13 +203,13 @@ case "$spot" in
  ;;
  "w7" )
  w7=$awn
- que="Name of your eigth world? 'w8'"
+ que="Name of your second world? 'w8'"
  spot="w8"
  clear
  ;;
  "w8" )
  w8=$awn
- que="Name of your ninth world? 'w9'"
+ que="Name of your second world? 'w9'"
  spot="w9"
  clear
  ;;
@@ -250,9 +223,7 @@ case "$spot" in
 
  * )
   clear
-  echo -e "*Input*$awn*Input*"
-  echo -e "*Spot*$spot*Spot*"
-  echo -e "\E[1;31m\E[1;5mNo valid option chosen\E[1;0m"
+  echo -e "\E[1;31m\E[1;5mNo valid optionion choosen\E[1;0m"
  ;;
 esac
 done
@@ -260,30 +231,29 @@ done
 
 # Make the config files from the templates.
 echo "Creating config files..."
-sed -e "s|{sc1}|$scloc/web.cmd|" web.su >web.sudo
-#new template system
-touch settings.php
-touch settings.web
-php dinstall.php $ps $mcloc $scloc $fdloc $ip $rpt "'$rps'"
-php sinstall.php $scloc $bkloc $mcloc $rmamo $dbon $dbtloc $dbloc $dbtloc $w1 $w2 $w3 $w4 $w5 $w6 $w7 $w8 $w9
+sed -e "s|{mc}|$mcloc|" -e "s|{sc}|$scloc|" -e "s|{bk}|$bkloc|" -e "s|{fd}|$fdloc|" -e "s|{rm}|$rmamo|" -e "s|{db}|$dbon|" -e "s|{dt}|$dbtloc|" -e "s|{dl}|$dbloc|" -e "s|{dp}|$dbploc|" -e "s|{1}|$w1|" -e "s|{2}|$w2|" -e "s|{3}|$w3|" -e "s|{4}|$w4|" -e "s|{5}|$w5|" -e "s|{6}|$w6|" -e "s|{7}|$w7|" -e "s|{8}|$w8|" -e "s|{9}|$w9|" set.web >settings.web
+sed -e "s|{fd}|$fdloc|" -e "s|{sc}|$scloc|" -e "s|{mc}|$mcloc|"  set.php >settings.php
+sed -e "s|{sc1}|$scloc/web.cmd|" -e "s|{sc2}|$scloc/log.cmd|" web.su >web.sudo
+
+
+
 
 # copying files
 echo ""
 echo ""
 echo "Creating directories and copying files....."
-mkdir $fdloc
 mkdir $scloc
 mkdir $bkloc
+mkdir $fdloc
 mkdir $dbtloc
 mkdir $dbloc
 mkdir $mcloc/uploads
 chmod 777 $mcloc/uploads
 mkdir $mcloc/logs
 unrar x scripts.rar $scloc
-unrar x dae.rar $fdloc
+unrar x web.rar $fdloc
 mv settings.web $scloc
 mv settings.php $fdloc
-mv mcdaemon /bin
 mv web.sudo /etc/sudoers.d/web
 chmod 0440 /etc/sudoers.d/web
 /etc/init.d/sudo restart
@@ -296,35 +266,26 @@ echo upload_max_filesize = 100M >> $pini
 /etc/init.d/apache2 restart
 
 #setting digest account
-#echo "Settng up web account........."
-#if [ ! -e "/etc/apache2/mods-enabled/auth_digest.load" ]; then
-#cp /etc/apache2/mods-available/auth_digest.load /etc/apache2/mods-enabled/auth_digest.load
-#/etc/init.d/apache2 restart
-#fi
-#echo "What username do you want for web access"
-#read usern
-#sed -e "s|{sc}|$scloc/ht.admin|" -e "s|{un}|$usern|" ht.acc >.htaccess
-#mv .htaccess $fdloc
-#htdigest -c $scloc/ht.admin admin $usern
+echo "Settng up web account........."
+if [ ! -e "/etc/apache2/mods-enabled/auth_digest.load" ]; then
+cp /etc/apache2/mods-available/auth_digest.load /etc/apache2/mods-enabled/auth_digest.load
+/etc/init.d/apache2 restart
+fi
+echo "What username do you want for web access"
+read usern
+sed -e "s|{sc}|$scloc/ht.admin|" -e "s|{un}|$usern|" ht.acc >.htaccess
+mv .htaccess $fdloc
+htdigest -c $scloc/ht.admin admin $usern
 
-echo ""
-echo ""
 echo "Setup is complete."
-echo "Make sure you have Rcon/Query port enabled in server.properties"
+echo "Make sure you have Query port enabled in server.properties"
 echo "enable-query=true"
-echo "enable-rcon=true"
 echo "query.port=25565"
-echo "rcon.port=25575"
 echo ""
 echo " Need to add a crontab for autobackup.  'crontab -e'"
 echo " exp. '*/60 * * * * $scloc/backup.cmd' Would backup once an hr."
 echo ""
-echo ""
-echo "Run 'mcdaemon' to start mc daemon"
-echo "It will start in a screen named 'dmc'"
-echo ""
 echo "GoodBye!"
-
 exit 0
 #-------END OF Install
 fi
